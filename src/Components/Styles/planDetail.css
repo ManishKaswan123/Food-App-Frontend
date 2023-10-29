@@ -90,6 +90,9 @@
     border: none;
     width: 100%;
 }
+.submitBtn button{
+    cursor: pointer;
+}
 .rcBtn{
     display: flex;
     justify-content: center;
@@ -100,6 +103,8 @@
 .rcBtn button{
     height: 30px;
     width: 100px;
+    cursor: pointer;
+
 }
 .rate {
     width: 100%;

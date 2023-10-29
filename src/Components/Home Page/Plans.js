@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react';
 import '../Styles/plan.css';
 import Tick from '../Images/check-mark.png'
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 function Plans() {
     const [arr, arrset] = useState([]);
 
     useEffect(async () => {
         try {
-            const data = await axios.get("/plans/top3");
-            console.log(data,23443);
+            const data = await axios.get("http://localhost:3000/plan/topPlan");
             arrset(data.data.data);
             
         } catch (err) {
@@ -59,4 +57,4 @@ function Plans() {
     )
 }
 
-export default Plans
+export default Plans;

@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react';
-import { Link } from "react-router-dom";
-import AuthProvider, { useAuth } from '../Context/AuthProvider';
-import '../Styles/nav.css'
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../Context/AuthProvider';
+import '../Styles/nav.css';
 
 function NavBar() {
-    // console.log(localStorage.getItem("user"));
-    const { user, logout } = useAuth()
- 
+    const { user , logout } = useAuth();
+    // const user = JSON.parse(localStorage.getItem('user'));
+
     useEffect(() => {
         let navBar = document.querySelector("nav");
 
@@ -19,22 +19,23 @@ function NavBar() {
             }
         });
     }, []);
-    
     return (
         <nav>
             <div className="menu">
                 <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/allPlans">Plans</Link></li>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/allPlans">Plans</Link>
+                    </li>
                     {user ?
-                    
                         <>
-                        {console.log(user)}
                             <li>
-                                <Link to="/profilePage">{user?.data?.name}</Link>
+                                <Link to="/profilePage">{user?.name}</Link>
                             </li>
                             <li>
-                                <Link to="" onClick={logout}>Logout</Link>
+                                <Link to="/" onClick={logout}>Logout</Link>
                             </li>
                         </>
                         :
@@ -48,4 +49,4 @@ function NavBar() {
     )
 }
 
-export default NavBar
+export default NavBar;

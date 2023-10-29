@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import '../Styles/planDetail.css'
 import '../Styles/contact.css'
-import AuthProvider, { useAuth } from '../Context/AuthProvider';
+import { useAuth } from '../Context/AuthProvider';
 
 function PlanDetail() {
     const [plan, setplan] = useState({})
@@ -12,47 +12,39 @@ function PlanDetail() {
     const [review, setreview] = useState("");
     const [rate, setrate] = useState();
     const { user } = useAuth();
-    console.log(id);
+
     useEffect(async () => {
-        console.log("inside useeffect");
-        const data = await axios.get("/plans/plan/"+id)
-        console.log(data,565785765);
-        delete data.data.data["_id"]
-        delete data.data.data["__v"]
-        setplan(data.data.data)
-        const reviews = await axios.get("/review/"+id);
-        // console.log(reviews);
-        console.log(reviews.data.data);
+        const data = await axios.get("http://localhost:3000/plan/"+id);
+
+        delete data.data.data["_id"];
+        delete data.data.data["__v"];
+        setplan(data.data.data);
+
+        const reviews = await axios.get("http://localhost:3000/review/"+id);
+
         setarr(reviews.data.data)
-        // console.log(arr);
     }, [])
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
     console.log(rate);
-    // console.log("user ",user);
     const handleClick = async () => {
-        console.log(123645);
-        const data = await axios.post("/review/crud/"+id, {
+        await axios.post("http://localhost:3000/review/crud/"+id, {
             "review": review,
-            "rating": rate,
-            "user": user.data._id,
+            "rating": parseInt(rate),
+            "user": user._id,
             "plan": id
         })
-        console.log(data);
-        const reviews = await axios.get("/review/" + id);
-        // console.log(reviews);
-        setarr(reviews.data.data);
+
+        const reviews = await axios.get("http://localhost:3000/review/"+id);
+        setarr(reviews.data.data)
     }
     const handleDelete = async(reviewId) =>{
         try{
-           
-            // console.log("12345",reviewId);
-            let data = await axios.delete("/review/crud/"+id, { data: { "id": reviewId } });
-            console.log(data.config.data);
-            const reviews = await axios.get("/review/" + id);
-            console.log(reviews);
+            await axios.delete("http://localhost:3000/review/crud/"+id, { data: { "id": reviewId } });
+
+            const reviews = await axios.get("http://localhost:3000/review/" + id);
             setarr(reviews.data.data);
             alert("review deleted");
         }
@@ -86,16 +78,18 @@ function PlanDetail() {
             <div className='reviewBox'>
                 <div className="reviewEnrty">
                     <input type="text" value={review} onChange={(e) => setreview(e.target.value)} />
-                    <select name="" id="" className="select" onChange={(e) => { setrate(e.target.value) }}>
+                    <select name="" id="" className="select" onChange={(e) => {setrate(e.target.value, 10)}}>
                         <option value="5">5 Excellent</option>
                         <option value="4">4 Very Good</option>
                         <option value="3">3 Good</option>
                         <option value="2">2 Poor</option>
                         <option value="1">1 Very Poor</option>
                     </select>
-                    <button className="btn" onClick={handleClick}>
-                        Submit
-                    </button>
+                    <div className="submitBtn">
+                        <button  className="btn" onClick={handleClick}>
+                            Submit
+                        </button>
+                    </div>
                 </div>
                 {
                     arr && arr?.map((ele, key) => (

@@ -1,6 +1,5 @@
 import React, { useState , useContext } from 'react';
 import { AuthContext } from '../Context/AuthProvider';
-import axios from 'axios';
 import '../Styles/login.css';
 import { useHistory } from 'react-router-dom';
 
@@ -15,7 +14,7 @@ function Signup(props) {
     const handleSignup = async () => {
         try {
             await signUp(name,email,password,confirm);
-            history.push("/login");
+            history.push("login");
         }
         catch (err) {
             console.log(err);

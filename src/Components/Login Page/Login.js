@@ -1,22 +1,17 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, {useState, useContext } from 'react';
 import { AuthContext } from '../Context/AuthProvider';
-import axios from 'axios';
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
 import '../Styles/login.css'
 
-function 
-Login() {
-
+function Login() {
     const history = useHistory();
     const [password, passwordSet] = useState("")
     const [email, emailSet] = useState("");
-    const [loading, setLoading] = useState(false);
     const {login, user} = useContext(AuthContext);
 
     const handleLogin = async () => {
         try {
-            // console.log(email,password)
             await login(email, password)
             history.push("/")
           } catch(err) {
