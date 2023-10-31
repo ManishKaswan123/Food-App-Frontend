@@ -9,10 +9,10 @@ function ForgetPassword() {
 
     const handleForgetPassword=async()=>{
         try{
-            const data=await axios.post("http://localhost:3000/user/forgetpassword",{
+            const data=await axios.post("https://iamhungry.onrender.com/user/forgetpassword",{
                 email:email
             });
-            history.push("http://localhost:3000/resetpassword")
+            history.push("https://iamhungry.onrender.com/resetpassword")
         }
         catch(err){
             console.log(err);

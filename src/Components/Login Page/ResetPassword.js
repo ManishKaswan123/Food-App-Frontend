@@ -8,7 +8,7 @@ function ResetPassword() {
     
     const handleResetPassword=async()=>{
         try{
-            const data=await axios.post("http://localhost:3000/user/resetpassword/:token",{
+            const data=await axios.post("https://iamhungry.onrender.com/user/resetpassword/:token",{
                 password:password,
                 confirmPassword:confirm
             });

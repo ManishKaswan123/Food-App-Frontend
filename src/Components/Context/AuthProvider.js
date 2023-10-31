@@ -12,7 +12,7 @@ function AuthProvider({ children }) {
     const [loading, setLoading] = useState(false);
 
     async function signUp(name,email,password,confirmPassword) {
-        await axios.post("http://localhost:3000/user/signup", {
+        await axios.post("https://iamhungry.onrender.com/user/signup", {
             name:name,
             email: email,
             password: password,
@@ -22,11 +22,11 @@ function AuthProvider({ children }) {
     }
     async function login(email, password) {
         try {
-            const data = await axios.post("http://localhost:3000/user/login", {
+            const data = await axios.post("https://iamhungry.onrender.com/user/login", {
                 email: email,
                 password: password
             });
-            const users = await axios.get("http://localhost:3000/user/getAllUser");
+            const users = await axios.get("https://iamhungry.onrender.com/user/getAllUser");
             let newData = users?.data.data.filter(item => item.email === email);
             userSet(newData[0]);
             localStorage.setItem("user", JSON.stringify(newData[0]));
@@ -38,7 +38,7 @@ function AuthProvider({ children }) {
     }
     async function logout() {
         localStorage.removeItem("user")
-        const data = await axios.get("http://localhost:3000/user/logout");
+        const data = await axios.get("https://iamhungry.onrender.com/user/logout");
         console.log(data);
         userSet(null);
     }
