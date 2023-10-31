@@ -26,7 +26,7 @@ function Profile() {
     const handleClick = async () => {
         console.log("profileUpdate");
         try {
-            await axios.patch("http://localhost:3000/user/" + user._id, {
+            await axios.patch("https://iamhungry.onrender.com/user/" + user._id, {
                 email,
                 name,
                 password,

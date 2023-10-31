@@ -8,7 +8,7 @@ function Plans() {
 
     useEffect(async () => {
         try {
-            const data = await axios.get("http://localhost:3000/plan/topPlan");
+            const data = await axios.get("https://iamhungry.onrender.com/plan/topPlan");
             arrset(data.data.data);
             
         } catch (err) {

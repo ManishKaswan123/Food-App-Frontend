@@ -14,13 +14,13 @@ function PlanDetail() {
     const { user } = useAuth();
 
     useEffect(async () => {
-        const data = await axios.get("http://localhost:3000/plan/"+id);
+        const data = await axios.get("https://iamhungry.onrender.com/plan/"+id);
 
         delete data.data.data["_id"];
         delete data.data.data["__v"];
         setplan(data.data.data);
 
-        const reviews = await axios.get("http://localhost:3000/review/"+id);
+        const reviews = await axios.get("https://iamhungry.onrender.com/review/"+id);
 
         setarr(reviews.data.data)
     }, [])
@@ -30,21 +30,21 @@ function PlanDetail() {
     }
     console.log(rate);
     const handleClick = async () => {
-        await axios.post("http://localhost:3000/review/crud/"+id, {
+        await axios.post("https://iamhungry.onrender.com/review/crud/"+id, {
             "review": review,
             "rating": parseInt(rate),
             "user": user._id,
             "plan": id
         })
 
-        const reviews = await axios.get("http://localhost:3000/review/"+id);
+        const reviews = await axios.get("https://iamhungry.onrender.com/review/"+id);
         setarr(reviews.data.data)
     }
     const handleDelete = async(reviewId) =>{
         try{
-            await axios.delete("http://localhost:3000/review/crud/"+id, { data: { "id": reviewId } });
+            await axios.delete("https://iamhungry.onrender.com/review/crud/"+id, { data: { "id": reviewId } });
 
-            const reviews = await axios.get("http://localhost:3000/review/" + id);
+            const reviews = await axios.get("https://iamhungry.onrender.com/review/" + id);
             setarr(reviews.data.data);
             alert("review deleted");
         }
